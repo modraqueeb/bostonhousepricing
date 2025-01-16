@@ -8,19 +8,15 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout
         uses: actions/checkout@v2
 
-      # Step 2: Install the Heroku CLI
       - name: Install Heroku CLI
         run: curl https://cli-assets.heroku.com/install.sh | sh
 
-      # Step 3: Set Heroku stack to container
       - name: Set Heroku stack to container
         run: heroku stack:set container --app boston-house-price-prediction1
 
-      # Step 4: Build, Push and Release Docker container to Heroku
       - name: Build, Push and Release a Docker container to Heroku
         uses: gonuit/heroku-docker-deploy@v1.3.3
         with:
@@ -32,6 +28,5 @@ jobs:
           docker_options: "--no-cache"
           process_type: web
 
-      # Step 5: Release the Docker container
       - name: Release the Docker container
         run: heroku container:release web --app boston-house-price-prediction1
