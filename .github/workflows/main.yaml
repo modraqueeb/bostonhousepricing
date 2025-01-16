@@ -1,8 +1,24 @@
 name: Deploy to Heroku
 
+github/workflows/main.yaml` file. Ensure the Heroku CLI installation step is placed correctly:
+
+```yaml
+name: Deploy to Heroku
+
 on:
   push:
+    branches: [on:
+  push:
     branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      -main]
 
 jobs:
   build:
@@ -17,16 +33,26 @@ jobs:
       - name: Set Heroku stack to container
         run: heroku stack:set container --app boston-house-price-prediction1
 
-      - name: Build, Push and Release a Docker container to Heroku
-        uses: gonuit/heroku-docker-deploy@v1.3.3
+      - name: Build, Push and Release name: Install Heroku CLI
+        run: curl https:// a Docker container to Heroku
+        uses: goncli-assets.heroku.com/install.sh | sh
+
+      - name: Set Heruit/heroku-docker-deploy@v1.3.3
         with:
           email: ${{ secrets.HEROKU_EMAIL }}
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: boston-house-price-prediction1
-          dockerfile_directory: ./
+          dockerfileoku stack to container
+        run: heroku stack:set container --app boston-house-price-prediction1
+
+      - name: Build, Push and Release a Docker container_directory: ./
           dockerfile_name: Dockerfile
           docker_options: "--no-cache"
-          process_type: web
+          to Heroku
+        uses: gonuit/heroku-docker-deploy@v1.3.3
+        with:
+          email: ${{ secrets.HEROKU_EMAIL }}
+          heroku_api_key: process_type: web
 
       - name: Release the Docker container
         run: heroku container:release web --app boston-house-price-prediction1
