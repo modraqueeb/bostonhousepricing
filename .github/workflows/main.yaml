@@ -1,13 +1,6 @@
 name: Deploy to Heroku
 
-github/workflows/main.yaml` file. Ensure the Heroku CLI installation step is placed correctly:
-
-```yaml
-name: Deploy to Heroku
-
 on:
-  push:
-    branches: [on:
   push:
     branches: [main]
 
@@ -15,44 +8,30 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
+      # Step 1: Checkout the repository
       - name: Checkout
         uses: actions/checkout@v2
 
-      -main]
-
-jobs:
-  build:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
+      # Step 2: Install the Heroku CLI
       - name: Install Heroku CLI
         run: curl https://cli-assets.heroku.com/install.sh | sh
 
+      # Step 3: Set Heroku stack to container
       - name: Set Heroku stack to container
         run: heroku stack:set container --app boston-house-price-prediction1
 
-      - name: Build, Push and Release name: Install Heroku CLI
-        run: curl https:// a Docker container to Heroku
-        uses: goncli-assets.heroku.com/install.sh | sh
-
-      - name: Set Heruit/heroku-docker-deploy@v1.3.3
+      # Step 4: Build, Push and Release Docker container to Heroku
+      - name: Build, Push and Release a Docker container to Heroku
+        uses: gonuit/heroku-docker-deploy@v1.3.3
         with:
           email: ${{ secrets.HEROKU_EMAIL }}
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: boston-house-price-prediction1
-          dockerfileoku stack to container
-        run: heroku stack:set container --app boston-house-price-prediction1
-
-      - name: Build, Push and Release a Docker container_directory: ./
+          dockerfile_directory: ./
           dockerfile_name: Dockerfile
           docker_options: "--no-cache"
-          to Heroku
-        uses: gonuit/heroku-docker-deploy@v1.3.3
-        with:
-          email: ${{ secrets.HEROKU_EMAIL }}
-          heroku_api_key: process_type: web
+          process_type: web
 
+      # Step 5: Release the Docker container
       - name: Release the Docker container
         run: heroku container:release web --app boston-house-price-prediction1
