@@ -11,11 +11,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # Step to set the Heroku stack to container
       - name: Set Heroku stack to container
         run: heroku stack:set container --app boston-house-price-prediction1
 
-      # Build, Push and Release Docker container to Heroku
       - name: Build, Push and Release a Docker container to Heroku
         uses: gonuit/heroku-docker-deploy@v1.3.3
         with:
@@ -27,6 +25,5 @@ jobs:
           docker_options: "--no-cache"
           process_type: web
 
-      # Step to release the Docker container
       - name: Release the Docker container
         run: heroku container:release web --app boston-house-price-prediction1
