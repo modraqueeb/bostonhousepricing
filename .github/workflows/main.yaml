@@ -1,5 +1,3 @@
-- name: Install Heroku CLI
-        run: curl https://cli-assets.heroku.com/install.sh | sh
 name: Deploy to Heroku
 
 on:
@@ -12,6 +10,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Install Heroku CLI
+        run: curl https://cli-assets.heroku.com/install.sh | sh
 
       - name: Set Heroku stack to container
         run: heroku stack:set container --app boston-house-price-prediction1
