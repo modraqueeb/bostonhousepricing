@@ -11,44 +11,38 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Build, Push and Release a Docker container to Heroku.
-        uses: gonuitThe job failed because the Heroku stack is not set to `container`.
+      - name: Set Heroku stack to container
+        run: heroku stack:set container --app boston-house-price-prediction1
 
-Here's an updated workflow file with the/heroku-docker-deploy@v1.3.3
+      - name: Build, Push and Release a DockerThe job failed because the Heroku stack is not set to `container container to Heroku.
+        uses: gonuit/heroku`. To fix this, you need to set the Heroku stack to `container` before releasing the Docker container.
+
+-docker-deploy@v1.3.3
         with:
-          correct steps:
+          email: ${{ secrets.HEROKU_EMAIL }}
+          heroku_api_keyHere's an updated `.github/workflows/main.yaml` with the necessary changes:
 
 ```yaml
-name: Deploy to heroku.
+name: Deploy to heroku: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: boston-house-price-prediction1
+          dockerfile_directory: ./
+          dockerfile_name: Docker.
 
- email: ${{ secrets.HEROKU_EMAIL }}
-          heron:
+on:
   push:
     branches: [main]
 
 jobs:
-  build:
-oku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          her    runs-on: ubuntu-22.04
+  buildfile
+          docker_options: "--no-cache"
+          process_type: web
+
+      - name: Release the:
+    runs-on: ubuntu-22.04
     steps:
-      - name:oku_app_name: boston-house-price-prediction1
-          dockerfile_directory: ./
-          dockerfile_name: Checkout
+      - Docker container
+        run: heroku container:release name: Checkout
         uses: actions/checkout@v2
 
-      - name Dockerfile
-          docker_options: "--no-cache"
-: Set Heroku stack to container
-        run:          process_type: web
-
-      - name: Set Heroku heroku stack:set container --app boston-house-price-p stack to container
-        run: heroku stack:set container --app boston-house-price-prediction1
-
-      -rediction1
-
-      - name: Build, Push and Release a Docker container to Heroku.
-        uses: gonuit/her name: Release the Docker container
-        run: heroku-docker-deploy@v1.3.3
-        with:
-          email: ${{ secrets.HEROKU_EMAIL }}
-          heroku_apioku container:release web --app boston-house-price-prediction1
+      - name: Set Heroku stack to container
+        run: web --app boston-house-price-prediction1
