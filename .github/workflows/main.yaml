@@ -1,3 +1,5 @@
+- name: Install Heroku CLI
+        run: curl https://cli-assets.heroku.com/install.sh | sh
 name: Deploy to Heroku
 
 on:
