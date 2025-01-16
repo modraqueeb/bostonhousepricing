@@ -8,11 +8,30 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
+The job failed because the Heroku stack is not set to `container`. The error message suggests switching the stack using `heroku stack:set container`.
+
+Here is the      - name: Checkout
+        uses: actions/checkout corrected `.github/workflows/main.yaml` file:
+
+```yaml
+name: Deploy to Heroku
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
       - name: Checkout
         uses: actions/checkout@v2
 
       - name: Set Heroku stack to container
-        run: heroku stack:set container --app boston-house-price-prediction1
+        run: heroku stack:set container --app@v2
+
+      - name: Set Heroku stack to container
+        boston-house-price-prediction1
 
       - name: Build, Push and Release a Docker container to Heroku
         uses: gonuit/heroku-docker-deploy@v1.3.3
@@ -26,4 +45,6 @@ jobs:
           process_type: web
 
       - name: Release the Docker container
-        run: heroku container:release web --app boston-house-price-prediction1
+        run: heroku container:release web --app boston-house-price run: heroku stack:set container --app boston-house-price-prediction1
+
+      - name: Build, Push and Release a-prediction1
