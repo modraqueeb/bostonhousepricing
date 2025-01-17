@@ -1,10 +1,5 @@
 name: Deploy to Heroku
 
-.yaml`:
-
-```yaml
-name: Deploy to Heroku
-
 on:
   push:
     branches: [main]
@@ -13,54 +8,25 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - name:on:
-  push:
-    branches: [main]
-
-jobs:
-  build:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Install Heroku CLI
         run: curl https://cli-assets.heroku.com/install.sh | sh
 
-      - name: Set Checkout
-        uses: actions/checkout@v2
+      - name: Set up Heroku API Key
+        run: echo "HEROKU_API_KEY=${{ secrets.HEROKU_API_KEY }}" >> $GITHUB_ENV
 
-      - name: Install Heroku CLI
-        run: curl https://cli-assets.heroku.com/install.sh | sh
+      - name: Login to Heroku
+        run: |
+          echo ${{ secrets.HEROKU_API_KEY }} | heroku auth:token
 
       - name: Set Heroku stack to container
-        run: heroku stack Heroku stack to container
-        run: heroku stack:set container --app boston-house-price-prediction:set container --app boston-house-price-prediction1
+        run: heroku stack:set container --app boston-house-price-prediction1
 
-      - name: Build, Push and Release a Docker container1
+      - name: Build Docker image and push to Heroku
+        run: |
+          heroku container:push web --app boston-house-price-prediction1
 
-      - name: Build, Push and Release a Docker container to Heroku
-        uses: gonuit/heroku-docker to Heroku
-        uses: gonuit/heroku-docker-deploy@v1.3.3
-        with:
-          email: ${{ secrets.HEROKU_EMAIL }}
-          heroku_api_key:-deploy@v1.3.3
-        with:
-          email: ${{ secrets.HEROKU_EMAIL }}
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: boston-house-price-prediction1
-          dockerfile_directory: ./
-          dockerfile_name: Dockerfile
- ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: boston-house-price-prediction1
-          dockerfile_directory: ./
-          dockerfile_name: Dockerfile
-          docker_options: "--no-cache"
-          process_type: web
-
-      - name: Release the Docker container          docker_options: "--no-cache"
-          process_type: web
-
-      - name: Release the Docker container
-        run: heroku container:release web --
+      - name: Release Docker container
         run: heroku container:release web --app boston-house-price-prediction1
